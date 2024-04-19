@@ -1,0 +1,65 @@
+﻿@page "/matchhistory"
+@using Caligula.Api;
+@inject MatchHistoryService MatchHistoryService
+
+<h3>Match History</h3>
+
+<div>
+    <label for="player1Name">Player 1 Name:</label>
+    <input @bind="player1Name" id="player1Name" />
+
+    <label for="player2Name">Player 2 Name:</label>
+    <input @bind="player2Name" id="player2Name" />
+
+    <button @onclick="GetCommonMatchHistory">Get Common Matches</button>
+</div>
+
+@if (matchHistory?.CommonMatches.Any() ?? false)
+{
+    <h4>Common Matches for @matchHistory.PlayerOne.Name and @matchHistory.PlayerTwo.Name</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Map</th>
+                <th>Duration</th>
+                <th>Players</th>
+                <th>Winner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var match in matchHistory.CommonMatches)
+            {
+                <tr>
+                    <td>@match.Map.Name</td>
+                    <td>@TimeSpan.FromSeconds(match.Duration).ToString(@"hh\:mm\:ss")</td>
+                    <td>
+                        @foreach (var player in match.Players)
+                        {
+                            <div>@player.Name</div>
+                        }
+                    </td>
+                    <td>
+                        @(match.WinnerPlayerCharacterId == matchHistory.PlayerOne.Id ? matchHistory.PlayerOne.Name : matchHistory.PlayerTwo.Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (searchCompleted)
+{
+    <p>No common matches found.</p>
+}
+
+@code {
+    private string player1Name;
+    private string player2Name;
+    private Caligula.Model.Caligula.MatchHistory matchHistory;
+    private bool searchCompleted = false;
+
+    private async Task GetCommonMatchHistory()
+    {
+        matchHistory = await MatchHistoryService.GetMatchHistoryForTwoPlayersAsync(player1Name, player2Name);
+        searchCompleted = true;
+    }
+}

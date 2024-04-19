@@ -1,0 +1,15 @@
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\bin\Debug\net6.0\Caligula.Service.deps.json
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\bin\Debug\net6.0\Caligula.Service.dll
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\bin\Debug\net6.0\Caligula.Service.pdb
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\bin\Debug\net6.0\Caligula.Model.dll
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\bin\Debug\net6.0\Caligula.Model.pdb
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.csproj.AssemblyReference.cache
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.AssemblyInfoInputs.cache
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.AssemblyInfo.cs
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.csproj.CoreCompileInputs.cache
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.csproj.CopyComplete
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.dll
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\refint\Caligula.Service.dll
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\Caligula.Service.pdb
+C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Api\obj\Debug\net6.0\ref\Caligula.Service.dll

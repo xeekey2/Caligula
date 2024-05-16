@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\khj.LASERTRYK\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\xeekj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\khj.LASERTRYK\\Desktop\\repos\\Caligula\\Caligula\\Caligula.Model\\Caligula.Model.csproj",
+      "projectUniqueName": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\Caligula.Model.csproj",
       "projectName": "Caligula.Model",
-      "projectPath": "C:\\Users\\khj.LASERTRYK\\Desktop\\repos\\Caligula\\Caligula\\Caligula.Model\\Caligula.Model.csproj",
-      "packagesPath": "C:\\Users\\khj.LASERTRYK\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\khj.LASERTRYK\\Desktop\\repos\\Caligula\\Caligula\\Caligula.Model\\obj\\",
+      "projectPath": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\Caligula.Model.csproj",
+      "packagesPath": "C:\\Users\\xeekj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\khj.LASERTRYK\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\xeekj\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -33,11 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
-        "H:\\Lasertryk\\IT\\Kode\\Nuget Repository\\Lasertryk": {},
-        "H:\\Lasertryk\\IT\\Kode\\Nuget Repository\\MicroServices": {},
-        "\\\\10.11.1.90\\Data\\IT\\Kode\\Nuget Repository (old)\\Lasertryk": {},
-        "\\\\10.11.1.90\\Data\\IT\\Kode\\Nuget Repository (old)\\MicroServices": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -50,6 +40,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -71,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
       }
     }
   }

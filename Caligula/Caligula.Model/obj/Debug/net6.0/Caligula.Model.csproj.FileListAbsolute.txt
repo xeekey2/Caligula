@@ -10,3 +10,15 @@ C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Model\obj\Debug\n
 C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\refint\Caligula.Model.dll
 C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.pdb
 C:\Users\khj.LASERTRYK\source\repos\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\ref\Caligula.Model.dll
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\bin\Debug\net6.0\Caligula.Model.deps.json
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\bin\Debug\net6.0\Caligula.Model.dll
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\bin\Debug\net6.0\Caligula.Model.pdb
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.AssemblyInfoInputs.cache
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.AssemblyInfo.cs
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.csproj.CoreCompileInputs.cache
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.sourcelink.json
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.dll
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\refint\Caligula.Model.dll
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\Caligula.Model.pdb
+C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\obj\Debug\net6.0\ref\Caligula.Model.dll

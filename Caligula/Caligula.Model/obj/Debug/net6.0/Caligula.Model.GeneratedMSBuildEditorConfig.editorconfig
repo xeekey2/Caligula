@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Caligula.Model
-build_property.ProjectDir = C:\Users\khj.LASERTRYK\Desktop\repos\Caligula\Caligula\Caligula.Model\
+build_property.ProjectDir = C:\Users\xeekj\source\repos\xeekey2\Caligula\Caligula\Caligula.Model\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

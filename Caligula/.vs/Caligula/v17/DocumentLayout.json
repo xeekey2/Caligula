@@ -1,0 +1,219 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\.gitignore.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula\\pages\\matchhistory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|solutionrelative:caligula\\pages\\matchhistory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB831464-9E10-46AE-AD39-0160D4693D57}|Caligula.Api\\Caligula.Service.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula.api\\matchhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB831464-9E10-46AE-AD39-0160D4693D57}|Caligula.Api\\Caligula.Service.csproj|solutionrelative:caligula.api\\matchhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A892D8B9-9D1C-459D-8078-37EF98620FB2}|Caligula.Model\\Caligula.Model.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula.model\\caligula\\matchhistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A892D8B9-9D1C-459D-8078-37EF98620FB2}|Caligula.Model\\Caligula.Model.csproj|solutionrelative:caligula.model\\caligula\\matchhistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB831464-9E10-46AE-AD39-0160D4693D57}|Caligula.Api\\Caligula.Service.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula.api\\extensions\\matchextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB831464-9E10-46AE-AD39-0160D4693D57}|Caligula.Api\\Caligula.Service.csproj|solutionrelative:caligula.api\\extensions\\matchextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula\\wwwroot\\css\\laddertable.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|solutionrelative:caligula\\wwwroot\\css\\laddertable.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula\\pages\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|solutionrelative:caligula\\pages\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|solutionrelative:caligula\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|solutionrelative:caligula\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8706ADD7-CC51-43A7-B679-37B4A0846D37}|Caligula\\Caligula.Web.csproj|solutionrelative:caligula\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB831464-9E10-46AE-AD39-0160D4693D57}|Caligula.Api\\Caligula.Service.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula.api\\extensions\\participantextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB831464-9E10-46AE-AD39-0160D4693D57}|Caligula.Api\\Caligula.Service.csproj|solutionrelative:caligula.api\\extensions\\participantextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A892D8B9-9D1C-459D-8078-37EF98620FB2}|Caligula.Model\\Caligula.Model.csproj|c:\\users\\xeekj\\source\\repos\\xeekey2\\caligula\\caligula\\caligula.model\\sc2pulse\\groupresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A892D8B9-9D1C-459D-8078-37EF98620FB2}|Caligula.Model\\Caligula.Model.csproj|solutionrelative:caligula.model\\sc2pulse\\groupresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore.gitignore",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\.gitignore.gitignore",
+              "RelativeDocumentMoniker": ".gitignore.gitignore",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\.gitignore.gitignore",
+              "RelativeToolTip": ".gitignore.gitignore",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-05-16T20:05:40.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MatchHistory.razor",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\Pages\\MatchHistory.razor",
+              "RelativeDocumentMoniker": "Caligula\\Pages\\MatchHistory.razor",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\Pages\\MatchHistory.razor",
+              "RelativeToolTip": "Caligula\\Pages\\MatchHistory.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-16T16:42:17.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MatchExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Api\\Extensions\\MatchExtensions.cs",
+              "RelativeDocumentMoniker": "Caligula.Api\\Extensions\\MatchExtensions.cs",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Api\\Extensions\\MatchExtensions.cs",
+              "RelativeToolTip": "Caligula.Api\\Extensions\\MatchExtensions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-20T23:52:26.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MatchHistoryService.cs",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Api\\MatchHistoryService.cs",
+              "RelativeDocumentMoniker": "Caligula.Api\\MatchHistoryService.cs",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Api\\MatchHistoryService.cs",
+              "RelativeToolTip": "Caligula.Api\\MatchHistoryService.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAIA2wC0AAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-20T12:03:46.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "laddertable.css",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\wwwroot\\css\\laddertable.css",
+              "RelativeDocumentMoniker": "Caligula\\wwwroot\\css\\laddertable.css",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\wwwroot\\css\\laddertable.css",
+              "RelativeToolTip": "Caligula\\wwwroot\\css\\laddertable.css",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAC4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-05-16T18:08:18.838Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "Caligula\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "Caligula\\wwwroot\\css\\site.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-05-16T18:08:02.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\Pages\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Caligula\\Pages\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\Pages\\_Layout.cshtml",
+              "RelativeToolTip": "Caligula\\Pages\\_Layout.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-16T18:07:52.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MatchHistory.cs",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\Caligula\\MatchHistory.cs",
+              "RelativeDocumentMoniker": "Caligula.Model\\Caligula\\MatchHistory.cs",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\Caligula\\MatchHistory.cs",
+              "RelativeToolTip": "Caligula.Model\\Caligula\\MatchHistory.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-21T00:28:19.799Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ParticipantExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Api\\Extensions\\ParticipantExtensions.cs",
+              "RelativeDocumentMoniker": "Caligula.Api\\Extensions\\ParticipantExtensions.cs",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Api\\Extensions\\ParticipantExtensions.cs",
+              "RelativeToolTip": "Caligula.Api\\Extensions\\ParticipantExtensions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T16:42:44.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "GroupResponse.cs",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\SC2Pulse\\GroupResponse.cs",
+              "RelativeDocumentMoniker": "Caligula.Model\\SC2Pulse\\GroupResponse.cs",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula.Model\\SC2Pulse\\GroupResponse.cs",
+              "RelativeToolTip": "Caligula.Model\\SC2Pulse\\GroupResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAgAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-16T17:15:35.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\Shared\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Caligula\\Shared\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\Shared\\MainLayout.razor",
+              "RelativeToolTip": "Caligula\\Shared\\MainLayout.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvxMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-16T18:07:39.733Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\_Imports.razor",
+              "RelativeDocumentMoniker": "Caligula\\_Imports.razor",
+              "ToolTip": "C:\\Users\\xeekj\\source\\repos\\xeekey2\\Caligula\\Caligula\\Caligula\\_Imports.razor",
+              "RelativeToolTip": "Caligula\\_Imports.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvwoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-16T18:07:43.816Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

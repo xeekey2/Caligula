@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Caligula.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+88f1d18121cc63151f2ff1337ac2b0080753fba1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Caligula.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Caligula.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

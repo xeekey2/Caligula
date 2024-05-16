@@ -1,0 +1,46 @@
+﻿.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.styled-table th, .styled-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.styled-table th {
+    background-color: #333;
+    color: white;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.player-name {
+    font-weight: bold; /* Makes player names bold */
+}
+
+.mmr-change {
+    color: #777; /* Default color for MMR change */
+    font-size: 0.8em; /* Smaller font size for MMR change */
+}
+
+.winner {
+    color: green;
+}
+
+.loser {
+    color: red;
+}
+
+/* Additional styles for MMR change based on increase or decrease */
+.mmr-change.winner {
+    color: green; /* Positive change */
+}
+
+.mmr-change.loser {
+    color: red; /* Negative change */
+}

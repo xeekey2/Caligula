@@ -9,6 +9,7 @@ using Caligula.Model;
 using Caligula.Model.Caligula;
 using Caligula.Model.SC2Pulse;
 using Caligula.Service.Extensions;
+using System.Globalization;
 
 namespace Caligula.Api
 {
@@ -16,55 +17,136 @@ namespace Caligula.Api
     {
         private readonly SC2PulseWrapper Sc2PulseWrapper = new SC2PulseWrapper("https://sc2pulse.nephest.com/sc2/");
 
+
         public async Task<MatchHistory> GetMatchHistoryForTwoPlayersAsync(string player1Name, string player2Name)
         {
-            var player1Id = await GetPlayerId(player1Name);
-            var player2Id = await GetPlayerId(player2Name);
+            var player1 = await GetPlayerInfo(player1Name);
+            var player2 = await GetPlayerInfo(player2Name);
 
-            var player1Matches = await GetMatchHistoryAsync(player1Id);
-            var player2Matches = await GetMatchHistoryAsync(player2Id);
+            var player1Matches = await GetMatchHistoriesDailyAsync(player1.ProPlayerId, DateTime.Now.AddMonths(-6), DateTime.Now);
+            var player2Matches = await GetMatchHistoriesDailyAsync(player2.ProPlayerId, DateTime.Now.AddMonths(-6), DateTime.Now);
 
-            var commonMatches = FindCommonMatches(player1Matches, player2Matches, player1Id, player2Id);
+            var commonMatches = FindCommonMatches(player1Matches, player2Matches, player1, player2);
 
-            return new MatchHistory
+            var commonMatchTasks = commonMatches.Select(m => m.ToCaligulaMatchAsync());
+            var caligulaMatches = await Task.WhenAll(commonMatchTasks);
+
+            // Adjust player orientation based on actual match participation
+            var (playerOne, playerTwo) = DeterminePlayerOrientation(commonMatches, player1, player2);
+
+            var history = new MatchHistory
             {
-                CommonMatches = commonMatches.ToCaligulaMatches(),
-                PlayerOne = new Player { Id = player1Id },
-                PlayerTwo = new Player { Id = player2Id }
+                CommonMatches = caligulaMatches.OrderByDescending(x => x.Date).ToList(),
+                PlayerOne = playerOne,
+                PlayerTwo = playerTwo,
+                PlayerOneTotalWins = caligulaMatches.Count(x => x.Winner == playerOne.Name),
+                PlayerTwoTotalWins = caligulaMatches.Count(x => x.Winner == playerTwo.Name),
+                PlayerOneTotalLosses = caligulaMatches.Count(x => x.Winner != playerOne.Name && x.Winner != null),
+                PlayerTwoTotalLosses = caligulaMatches.Count(x => x.Winner != playerTwo.Name && x.Winner != null),
             };
+
+            return history;
         }
 
-        private List<Caligula.Model.SC2Pulse.Match> FindCommonMatches(MatchHistoryResponse player1Matches, MatchHistoryResponse player2Matches, int player1Id, int player2Id)
+
+        private (Player playerOne, Player playerTwo) DeterminePlayerOrientation(List<Result> commonMatches, Player initialPlayerOne, Player initialPlayerTwo)
         {
-            return player1Matches.matches
-                .Where(m1 => player2Matches.matches.Any(m2 =>
-                    m1.participants.Any(p1 => p1.participant.playerCharacterId == player1Id) &&
-                    m2.participants.Any(p2 => p2.participant.playerCharacterId == player2Id) &&
-                    m1 == m2))
-                .ToList();
+            int playerOneMatches = commonMatches.Count(m => m.participants.Any(p => p.participant.playerCharacterId == initialPlayerOne.Id));
+            int playerTwoMatches = commonMatches.Count(m => m.participants.Any(p => p.participant.playerCharacterId == initialPlayerTwo.Id));
+
+            // Swap if PlayerOne has no matches but PlayerTwo has
+            if (playerOneMatches == 0 && playerTwoMatches > 0)
+            {
+                return (initialPlayerTwo, initialPlayerOne);
+            }
+            return (initialPlayerOne, initialPlayerTwo);
         }
 
-        private async Task<int> GetPlayerId(string playerName)
+
+        private List<Result> FindCommonMatches(List<Result> player1Matches, List<Result> player2Matches, Player player1, Player player2)
+        {
+            // First attempt to find common matches with player1's matches as the base.
+            var commonMatches = FindCommonMatchesHelper(player1Matches, player2Matches, player1.Id);
+
+            // If no common matches are found, swap and try again.
+            if (!commonMatches.Any())
+            {
+                commonMatches = FindCommonMatchesHelper(player2Matches, player1Matches, player2.Id);
+            }
+
+            return commonMatches;
+        }
+
+        private List<Result> FindCommonMatchesHelper(List<Result> baseMatches, List<Result> compareMatches, int playerId)
+        {
+            var baseMatchIds = new HashSet<int>(baseMatches.Select(m => m.match.Id));
+
+            var matches = compareMatches
+                .Where(m => m.participants.Any(p => p.participant.playerCharacterId == playerId) && baseMatchIds.Contains(m.match.Id))
+                .ToList();
+
+            var uniqueMatches = matches
+                .GroupBy(m => m.match.Id)
+                .Select(g => g.First())
+                .ToList();
+
+            return uniqueMatches;
+        }
+
+
+
+        private async Task<Player> GetPlayerInfo(string playerName)
         {
             var response = await Sc2PulseWrapper.GetPlayerIdAsync(playerName);
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var playerJSON = JsonConvert.DeserializeObject<SearchResponse>(json);
-                return playerJSON.Results.OrderBy(x => x.ratingMax).FirstOrDefault().members.character.accountId;
+                return null;
             }
-            return -1;
+
+            var json = await response.Content.ReadAsStringAsync();
+            var playerStats = JsonConvert.DeserializeObject<List<SearchResponse>>(json);
+            var selectedPlayer = playerStats.OrderByDescending(p => p.currentStats.rating).FirstOrDefault();
+
+            if (selectedPlayer?.members != null) 
+            {
+                var member = selectedPlayer.members;
+                return new Player { Id = selectedPlayer.members.account.id, ProPlayerId = selectedPlayer.members.proId ,Name = selectedPlayer.members.proNickname };
+            }
+
+            return null;
         }
 
-        private async Task<MatchHistoryResponse> GetMatchHistoryAsync(int playerId)
+
+        private async Task<List<Result>> GetMatchHistoriesDailyAsync(int playerId, DateTime startDate, DateTime endDate)
         {
-            var response = await Sc2PulseWrapper.GetPlayerMatchHistoryAsync(playerId);
-            if (response.IsSuccessStatusCode)
+            List<Result> matchHistories = new List<Result>();
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<MatchHistoryResponse>(json);
+                string dateString = date.ToString("yyyy-MM-ddTHH:mm:ss.ffffff'Z'", CultureInfo.InvariantCulture);
+                //var response = await Sc2PulseWrapper.GetPlayerMatchHistoryAsync(playerId, dateString);
+                var response = await Sc2PulseWrapper.GetGroupedProPlayerMatchHistoryAsync(playerId, dateString);
+                if (response.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        var results = JsonConvert.DeserializeObject<List<Result>>(json);
+                        if (results.Count > 0)
+                        {
+                            foreach (var match in results)
+                            {
+                                matchHistories.Add(match);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        continue;
+                    }
+                }
             }
-            return null;
+            return matchHistories;
         }
     }
 }

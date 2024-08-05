@@ -1,0 +1,78 @@
+﻿@page "/Matchhistory"
+@using Caligula.Web.ApiClients
+@inject MatchHistoryApiClient MatchHistoryApi
+@rendermode InteractiveServer
+
+<h3>Match History</h3>
+
+<div>
+    <label for="player1Name">Player 1 Name:</label>
+    <input @bind="player1Name" id="player1Name" />
+
+    <label for="player2Name">Player 2 Name:</label>
+    <input @bind="player2Name" id="player2Name" />
+
+    <button @onclick="GetCommonMatchHistory">Get Common Matches</button>
+
+</div>
+
+@if (searchCompleted)
+{
+    @if (matchHistory?.CommonMatches.Any() ?? false)
+    {
+        <h4>Ladder Matches between @matchHistory.PlayerOne.Name and @matchHistory.PlayerTwo.Name</h4>
+        <p>
+            Total Wins:<br>
+            @matchHistory.PlayerOne.Name: @matchHistory.PlayerOneTotalWins - @matchHistory.PlayerOneTotalLosses<br>
+            @matchHistory.PlayerTwo.Name: @matchHistory.PlayerTwoTotalWins - @matchHistory.PlayerTwoTotalLosses
+        </p>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Map</th>
+                    <th>Duration</th>
+                    <th>Players</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var match in matchHistory.CommonMatches)
+                {
+                    var winnerId = match.Participants.FirstOrDefault(p => p.participant.decision == "WIN")?.participant.playerCharacterId;
+                    var winnerName = match.Players.FirstOrDefault(p => p.Id == winnerId)?.Name;
+                    <tr>
+                        <td>@match.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@match.Map.Name</td>
+                        <td>@TimeSpan.FromSeconds(Convert.ToDouble(match.Duration)).ToString(@"mm\:ss")</td>
+                        <td>
+                            @foreach (var player in match.Players)
+                            {
+                                <span class="player-name @(player.Id == winnerId ? "winner" : "loser")">
+                                    @player.Name @(player.Id == winnerId ? "+" : "")@match.Participants.FirstOrDefault(p => p.participant.playerCharacterId == player.Id)?.participant.ratingChange
+                                </span>
+                                <br />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No common matches found.</p>
+    }
+}
+
+@code {
+    private string player1Name = "";
+    private string player2Name = "";
+    private Caligula.Model.Caligula.MatchHistory matchHistory;
+    private bool searchCompleted = false;
+
+    private async Task GetCommonMatchHistory()
+    {
+        matchHistory = await MatchHistoryApi.GetMatchHistoryForTwoPlayersAsync(player1Name, player2Name);
+        searchCompleted = true;
+    }
+}

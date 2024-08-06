@@ -22,10 +22,12 @@ namespace Caligula.Model.Caligula
 
     public class MatchObject
     {
+        public int Id { get; set; }
         public List<Player> Players { get; set; }
         public Map Map { get; set; }
         public Participant[] Participants { get; set; }
-        public string Winner { get; set; } 
+        public string Winner { get; set; }
+        public string Loser { get; set; }
         public int? Duration { get; set; }
         public DateTime Date { get; set; }
     }

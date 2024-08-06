@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Caligula.Api\Caligula.Service.csproj" />
     <ProjectReference Include="..\Caligula.Model\Caligula.Model.csproj" />
     <ProjectReference Include="..\Caligula.ServiceDefaults\Caligula.ServiceDefaults.csproj" />
   </ItemGroup>

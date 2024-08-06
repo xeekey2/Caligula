@@ -13,6 +13,7 @@
     <input @bind="player2Name" id="player2Name" />
 
     <button @onclick="GetCommonMatchHistory">Get Common Matches</button>
+    <button @onclick="RunDailyDataCollection">Run data collector</button>
 
 </div>
 
@@ -74,5 +75,10 @@
     {
         matchHistory = await MatchHistoryApi.GetMatchHistoryForTwoPlayersAsync(player1Name, player2Name);
         searchCompleted = true;
+    }
+
+    private async Task RunDailyDataCollection()
+    {
+        await MatchHistoryApi.RunDailyMatchHistoryUpdateAsync();
     }
 }

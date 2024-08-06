@@ -1,42 +1,135 @@
-﻿using Caligula.Web.ApiClients;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Impl;
-using System.Reflection.Metadata;
+using Quartz.Spi;
+using Caligula.Web.ApiClients;
+using System.Net.Http;
+using Caligula.DataCollector;
+using Caligula.Service.Entity;
+using Microsoft.EntityFrameworkCore;
 
-public class Program
+namespace QuartzConsoleApp
 {
-    public static async Task Main(string[] args)
+    class Program
     {
-        IJobDetail job = JobBuilder.Create<MatchHistoryJob>()
-            .WithIdentity("matchHistoryJob", "group1")
-            .Build();
+        static async Task Main(string[] args)
+        {
+            var host = Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    // Register HttpClient and MatchHistoryApiClient
+                    services.AddHttpClient<MatchHistoryApiClient>();
 
-        ITrigger trigger = TriggerBuilder.Create()
-            .WithIdentity("matchHistoryTrigger", "group1")
-            .StartNow()
-            .WithSimpleSchedule(x => x
-                .WithIntervalInHours(24)
-                .RepeatForever())
-            .Build();
+                    services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Caligula;Trusted_Connection=True;"));
 
-        // Schedule the job using a scheduler
-        IScheduler scheduler = await StdSchedulerFactory.GetDefaultScheduler();
-        await scheduler.Start();
-        await scheduler.ScheduleJob(job, trigger);
+                    // Register Quartz services
+                    services.AddSingleton<IJobFactory, SingletonJobFactory>();
+                    services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+
+                    // Register the job
+                    services.AddSingleton<MatchHistoryJob>();
+                    services.AddSingleton(new JobSchedule(
+                        jobType: typeof(MatchHistoryJob),
+                        cronExpression: "0 0 0 * * ?")); // Run daily at midnight
+
+                    services.AddHostedService<QuartzHostedService>();
+                })
+                .Build();
+
+            await host.RunAsync();
+        }
     }
-}
 
-public class MatchHistoryJob : IJob
-{
-    private readonly MatchHistoryApiClient _apiClient;
-
-    public MatchHistoryJob(MatchHistoryApiClient apiClient)
+    public class SingletonJobFactory : IJobFactory
     {
-        _apiClient = apiClient;
+        private readonly IServiceProvider _serviceProvider;
+
+        public SingletonJobFactory(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
+        {
+            return _serviceProvider.GetRequiredService(bundle.JobDetail.JobType) as IJob;
+        }
+
+        public void ReturnJob(IJob job) { }
     }
 
-    public async Task Execute(IJobExecutionContext context)
+    public class JobSchedule
     {
-        await _apiClient.RunDailyMatchHistoryUpdateAsync();
+        public JobSchedule(Type jobType, string cronExpression)
+        {
+            JobType = jobType;
+            CronExpression = cronExpression;
+        }
+
+        public Type JobType { get; }
+        public string CronExpression { get; }
+    }
+
+    public class QuartzHostedService : IHostedService
+    {
+        private readonly ISchedulerFactory _schedulerFactory;
+        private readonly IJobFactory _jobFactory;
+        private readonly IEnumerable<JobSchedule> _jobSchedules;
+        private IScheduler _scheduler;
+
+        public QuartzHostedService(
+            ISchedulerFactory schedulerFactory,
+            IJobFactory jobFactory,
+            IEnumerable<JobSchedule> jobSchedules)
+        {
+            _schedulerFactory = schedulerFactory;
+            _jobFactory = jobFactory;
+            _jobSchedules = jobSchedules;
+        }
+
+        public async Task StartAsync(CancellationToken cancellationToken)
+        {
+            _scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
+            _scheduler.JobFactory = _jobFactory;
+
+            foreach (var jobSchedule in _jobSchedules)
+            {
+                var job = CreateJob(jobSchedule);
+                var trigger = CreateTrigger(jobSchedule);
+
+                await _scheduler.ScheduleJob(job, trigger, cancellationToken);
+            }
+
+            await _scheduler.Start(cancellationToken);
+        }
+
+        public async Task StopAsync(CancellationToken cancellationToken)
+        {
+            if (_scheduler != null)
+            {
+                await _scheduler.Shutdown(cancellationToken);
+            }
+        }
+
+        private static IJobDetail CreateJob(JobSchedule schedule)
+        {
+            var jobType = schedule.JobType;
+            return JobBuilder
+                .Create(jobType)
+                .WithIdentity(jobType.FullName)
+                .WithDescription(jobType.Name)
+                .Build();
+        }
+
+        private static ITrigger CreateTrigger(JobSchedule schedule)
+        {
+            return TriggerBuilder
+                .Create()
+                .WithIdentity($"{schedule.JobType.FullName}.trigger")
+                .WithCronSchedule(schedule.CronExpression)
+                .WithDescription(schedule.CronExpression)
+                .Build();
+        }
     }
 }

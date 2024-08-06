@@ -1,10 +1,13 @@
+using Caligula.Service.Entity;
 using Caligula.Web.ApiClients;
 using Caligula.Web.Components;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Caligula;Trusted_Connection=True;"));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -24,13 +27,13 @@ builder.Services.AddHttpClient<MatchHistoryApiClient>(client =>
 
 var app = builder.Build();
 
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 

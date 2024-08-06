@@ -61,6 +61,18 @@ app.MapGet("/playername/{id}", async (int id) =>
     return Results.BadRequest("Failed to retrieve name from ID.");
 });
 
+app.MapGet("/proplayerid/{charId}", async (int charId) =>
+{
+    var response = await httpClient.GetAsync($"api/character/{charId}/common");
+    if (response.IsSuccessStatusCode)
+    {
+        var content = await response.Content.ReadAsStringAsync();
+        return Results.Content(content, "application/json");
+    }
+    return Results.BadRequest("Failed to retrieve name from ID.");
+});
+
+
 app.MapGet("/proplayername/{id}", async (int id) =>
 {
     var response = await httpClient.GetAsync($"api/group?characterId={id}");

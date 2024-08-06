@@ -1,84 +1,60 @@
-﻿using Caligula.Model.Caligula;
-using Caligula.Model.SC2Pulse;
-using Caligula.Web.Extensions;
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Caligula.Model.Caligula;
+using Caligula.Model.SC2Pulse;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Caligula.Web.ApiClients
 {
-    public class MatchHistoryApiClient(HttpClient _httpClient)
+    public class MatchHistoryApiClient
     {
-        public async Task<MatchHistory> GetMatchHistoryForTwoPlayersAsync(string player1Name, string player2Name)
+        private readonly HttpClient _httpClient;
+        private readonly ApplicationDbContext _dbContext;
+
+        public MatchHistoryApiClient(HttpClient httpClient, ApplicationDbContext dbContext)
         {
-            var player1 = await GetPlayerInfoAsync(player1Name);
-            var player2 = await GetPlayerInfoAsync(player2Name);
+            _httpClient = httpClient;
+            _dbContext = dbContext;
+        }
 
-            var player1Matches = await GetMatchHistoriesDailyAsync(player1.ProPlayerId, DateTime.Now.AddMonths(-3), DateTime.Now.AddDays(-1));
-            var player2Matches = await GetMatchHistoriesDailyAsync(player2.ProPlayerId, DateTime.Now.AddMonths(-3), DateTime.Now.AddDays(-1));
-
-            var commonMatches = FindCommonMatches(player1Matches, player2Matches, player1, player2);
-
-            var commonMatchTasks = commonMatches.Select(m => m.ToCaligulaMatchAsync(this));
-            var caligulaMatches = await Task.WhenAll(commonMatchTasks);
-
-            var (playerOne, playerTwo) = DeterminePlayerOrientation(commonMatches, player1, player2);
-
-            var history = new MatchHistory
+        public async Task RunDailyMatchHistoryUpdateAsync()
+        {
+            List<string> sc2ProPlayers = new List<string>
             {
-                CommonMatches = caligulaMatches.OrderByDescending(x => x.Date).ToList(),
-                PlayerOne = playerOne,
-                PlayerTwo = playerTwo,
-                PlayerOneTotalWins = caligulaMatches.Count(x => x.Winner == playerOne.Name),
-                PlayerTwoTotalWins = caligulaMatches.Count(x => x.Winner == playerTwo.Name),
-                PlayerOneTotalLosses = caligulaMatches.Count(x => x.Winner != playerOne.Name && x.Winner != null),
-                PlayerTwoTotalLosses = caligulaMatches.Count(x => x.Winner != playerTwo.Name && x.Winner != null),
+                // Your list of player names
             };
 
-            return history;
-        }
-
-        private (Player playerOne, Player playerTwo) DeterminePlayerOrientation(List<Result> commonMatches, Player initialPlayerOne, Player initialPlayerTwo)
-        {
-            int playerOneMatches = commonMatches.Count(m => m.participants.Any(p => p.participant.playerCharacterId == initialPlayerOne.Id));
-            int playerTwoMatches = commonMatches.Count(m => m.participants.Any(p => p.participant.playerCharacterId == initialPlayerTwo.Id));
-
-            if (playerOneMatches == 0 && playerTwoMatches > 0)
+            foreach (var playerName in sc2ProPlayers)
             {
-                return (initialPlayerTwo, initialPlayerOne);
+                var player = await GetPlayerInfoAsync(playerName);
+                if (player == null) continue;
+
+                var matchHistories = await GetMatchHistoriesDailyAsync(player.ProPlayerId, DateTime.Now.AddMonths(-3), DateTime.Now);
+
+                foreach (var match in matchHistories)
+                {
+                    if (!await MatchExistsAsync(match.match.Id))
+                    {
+                        _dbContext.ProLadderMatches.Add(new ProLadderMatch
+                        {
+                            MatchId = match.match.Id,
+                            Date = match.match.Date,
+                            Player1Id = match.participants[0].participant.playerCharacterId,
+                            Player2Id = match.participants[1].participant.playerCharacterId
+                        });
+                    }
+                }
+
+                await _dbContext.SaveChangesAsync();
             }
-            return (initialPlayerOne, initialPlayerTwo);
         }
 
-        private List<Result> FindCommonMatches(List<Result> player1Matches, List<Result> player2Matches, Player player1, Player player2)
-        {
-            var commonMatches = FindCommonMatchesHelper(player1Matches, player2Matches, player1.Ids);
-
-            if (!commonMatches.Any())
-            {
-                commonMatches = FindCommonMatchesHelper(player2Matches, player1Matches, player2.Ids);
-            }
-
-            return commonMatches;
-        }
-
-        private List<Result> FindCommonMatchesHelper(List<Result> baseMatches, List<Result> compareMatches, List<int> playerIds)
-        {
-            var baseMatchIds = new HashSet<int>(baseMatches.Select(m => m.match.Id));
-
-            var matches = compareMatches
-                .Where(m => m.participants.Any(p => playerIds.Contains(p.participant.playerCharacterId)) && baseMatchIds.Contains(m.match.Id))
-                .ToList();
-
-            var uniqueMatches = matches
-                .GroupBy(m => m.match.Id)
-                .Select(g => g.First())
-                .ToList();
-
-            return uniqueMatches;
-        }
-
-        public async Task<Player> GetPlayerInfoAsync(string playerName)
+        private async Task<Player> GetPlayerInfoAsync(string playerName)
         {
             var response = await _httpClient.GetAsync($"/playerid/{playerName}");
             response.EnsureSuccessStatusCode();
@@ -117,60 +93,38 @@ namespace Caligula.Web.ApiClients
 
             var json = await response.Content.ReadAsStringAsync();
             var accounts = JsonConvert.DeserializeObject<List<SearchResponse>>(json);
-            return accounts.Select(x => x.members.character.id).ToList();
+            return accounts.Select(x => x.members.account.id).ToList();
         }
 
         private async Task<List<Result>> GetMatchHistoriesDailyAsync(int playerId, DateTime endDate, DateTime startDate)
         {
             List<Result> matchHistories = new List<Result>();
 
-            try
+            for (DateTime date = startDate; date >= endDate; date = date.AddDays(-1))
             {
-                for (DateTime date = startDate; date >= endDate; date = date.AddDays(-1)) // Adjusting to reduce the number of requests
+                string dateString = date.ToString("yyyy-MM-ddTHH:mm:ss.ffffff'Z'", CultureInfo.InvariantCulture);
+                string requestUrl = $"/proplayer/matchhistory/{playerId}/{dateString}";
+
+                var response = await _httpClient.GetAsync(requestUrl);
+                if (response.IsSuccessStatusCode)
                 {
-                    string dateString = date.ToString("yyyy-MM-ddTHH:mm:ss.ffffff'Z'", CultureInfo.InvariantCulture);
-                    string requestUrl = $"/proplayer/matchhistory/{playerId}/{dateString}";
+                    var json = await response.Content.ReadAsStringAsync();
+                    var results = JsonConvert.DeserializeObject<List<Result>>(json);
 
-                    // Log the request URL for debugging
-                    Console.WriteLine($"Request URL: {requestUrl}");
-
-                    try
+                    if (results?.Count > 0)
                     {
-                        var response = await _httpClient.GetAsync(requestUrl);
-
-                        // If the response is not successful, log the status code and reason
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
-                            continue;
-                        }
-
-                        var json = await response.Content.ReadAsStringAsync();
-                        var results = JsonConvert.DeserializeObject<List<Result>>(json);
-
-                        if (results?.Count > 0)
-                        {
-                            matchHistories.AddRange(results);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log exceptions that occur within the loop
-                        Console.WriteLine($"Exception while processing date {dateString}: {ex.Message}");
-                        continue; // Continue with the next iteration
+                        matchHistories.AddRange(results);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Log any unexpected exceptions that occur
-                Console.WriteLine($"Unexpected exception: {ex.Message}");
-                throw; // Re-throw the exception after logging
             }
 
             return matchHistories;
         }
 
+        private async Task<bool> MatchExistsAsync(int matchId)
+        {
+            return await _dbContext.ProLadderMatches.AnyAsync(m => m.MatchId == matchId);
+        }
 
         public async Task<string> GetProPlayerNameAsync(int participantId)
         {

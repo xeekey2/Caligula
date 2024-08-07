@@ -39,7 +39,7 @@ builder.Services.AddScoped(sp =>
     var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
     var httpClient = httpClientFactory.CreateClient("Sc2PulseClient");
     var dbContext = sp.GetRequiredService<ApplicationDbContext>();
-    return new PlayerComparisonService(dbContext, httpClient);
+    return new PlayerComparisonService(dbContext);
 });
 
 builder.Services.AddScoped(sp =>

@@ -28,9 +28,12 @@ namespace Caligula.Model.Caligula
         public Participant[] Participants { get; set; }
         public string Winner { get; set; }
         public string Loser { get; set; }
+        public int WinnerId { get; set; }  // Add WinnerId
+        public int LoserId { get; set; }   // Add LoserId
         public int? Duration { get; set; }
         public DateTime Date { get; set; }
     }
+
 
     public class Player
     {

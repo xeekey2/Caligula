@@ -288,18 +288,26 @@ namespace Caligula.Service.Extensions
         public static async Task<MatchObject> ToCaliMatchAsync(this DbMatch match)
         {
             var players = await match.Participants.ToPlayerListEntAsync();
-            var winnerName = await match.Participants.FirstOrDefault(x => x.Decision == "WIN")?.PlayerId.ToPlayerNameEnt();
+            var winner = match.Participants.FirstOrDefault(x => x.Decision == "WIN");
+            var loser = match.Participants.FirstOrDefault(x => x.Decision != "WIN");
+
+            var winnerName = winner != null ? await winner.PlayerId.ToPlayerNameEnt() : null;
+            var loserName = loser != null ? await loser.PlayerId.ToPlayerNameEnt() : null;
 
             return new MatchObject
             {
                 Players = players,
                 Map = match.Map.ToMapEnt(),
                 Winner = winnerName,
+                Loser = loserName,
+                WinnerId = winner?.PlayerId ?? 0,
+                LoserId = loser?.PlayerId ?? 0,
                 Duration = match.Duration,
                 Date = match.Date,
                 Participants = match.Participants.Select(p => p.ToParticipant()).ToArray(),
             };
         }
+
 
         public static async Task<List<Player>> ToPlayerListEntAsync(this IEnumerable<DbParticipant> participants)
         {

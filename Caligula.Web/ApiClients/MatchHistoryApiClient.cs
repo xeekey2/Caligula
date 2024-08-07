@@ -72,3 +72,15 @@ namespace Caligula.Web.ApiClients
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+//https://sc2pulse.nephest.com/sc2/api/ladder/stats?season=60&queue=LOTV_1V1&team-type=ARRANGED&us=true&eu=true&kr=true&cn=true&bro=true&sil=true&gol=true&pla=true&dia=true&mas=true&gra=true&page=0

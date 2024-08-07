@@ -69,7 +69,8 @@ namespace Caligula.Service
             // Filter matches to ensure both player1 and player2 are participants
             var commonMatches = matches
                 .Where(m => m.Participants.Any(p => player1Ids.Contains(p.PlayerId)) &&
-                            m.Participants.Any(p => player2Ids.Contains(p.PlayerId)))
+                            m.Participants.Any(p => player2Ids.Contains(p.PlayerId)) &&
+                            m.Participants.Count == 2)
                 .ToList();
 
             return commonMatches;

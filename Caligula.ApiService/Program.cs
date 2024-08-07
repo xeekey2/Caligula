@@ -1,9 +1,12 @@
+using Caligula.Model.SC2Pulse;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Caligula.Model.Caligula;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,8 @@ app.MapGet("/playerid/{playerName}", async (string playerName) =>
     }
     return Results.BadRequest("Failed to retrieve player ID.");
 });
+
+
 
 app.MapGet("/proplayer/matchhistory/{proPlayerId}/{date?}", async (int proPlayerId, string? date) =>
 {
@@ -61,28 +66,19 @@ app.MapGet("/playername/{id}", async (int id) =>
     return Results.BadRequest("Failed to retrieve name from ID.");
 });
 
-app.MapGet("/proplayerid/{charId}", async (int charId) =>
+app.MapGet("/GetPlayerInfo/{charId}", async (int charId) =>
 {
     var response = await httpClient.GetAsync($"api/character/{charId}/common");
     if (response.IsSuccessStatusCode)
     {
         var content = await response.Content.ReadAsStringAsync();
+        var playerData = JsonConvert.DeserializeObject<PlayerInfo>(content);
         return Results.Content(content, "application/json");
     }
-    return Results.BadRequest("Failed to retrieve name from ID.");
+    return Results.BadRequest("Failed to retrieve pro player ID.");
 });
 
 
-app.MapGet("/proplayername/{id}", async (int id) =>
-{
-    var response = await httpClient.GetAsync($"api/group?characterId={id}");
-    if (response.IsSuccessStatusCode)
-    {
-        var content = await response.Content.ReadAsStringAsync();
-        return Results.Content(content, "application/json");
-    }
-    return Results.BadRequest("Failed to retrieve pro player name.");
-});
 
 app.MapDefaultEndpoints();
 

@@ -37,22 +37,24 @@ namespace Caligula.Service.Extensions
             {
                 var json = await response.Content.ReadAsStringAsync();
                 var playerData = JsonConvert.DeserializeObject<GroupResponse>(json);
-                return playerData.characters.FirstOrDefault().members.proNickname;
+                var proPlayerName = playerData.characters.FirstOrDefault()?.members.proNickname;
+
+                if (!string.IsNullOrEmpty(proPlayerName))
+                {
+                    return proPlayerName;
+                }
             }
-            else
+
+            // If the pro player name is empty or null, or if the request failed, try to get the normal player name
+            response = await sc2PulseWrapper.GetNameFromId(participantId);
+            if (response.IsSuccessStatusCode)
             {
-                response = await sc2PulseWrapper.GetNameFromId(participantId);
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    var playerData = JsonConvert.DeserializeObject<List<PlayerDataResponse>>(json);
-                    return playerData.FirstOrDefault().Name;
-                }
-                else
-                {
-                    return null;
-                }
+                var json = await response.Content.ReadAsStringAsync();
+                var playerData = JsonConvert.DeserializeObject<List<PlayerDataResponse>>(json);
+                return playerData.FirstOrDefault()?.Name;
             }
+
+            return null;
         }
     }
 }

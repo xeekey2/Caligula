@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Caligula.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240806130448_AddedAccountId")]
-    partial class AddedAccountId
+    [Migration("20240807181834_meeeb0")]
+    partial class meeeb0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,9 +55,8 @@ namespace Caligula.Service.Migrations
                     b.Property<int?>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<string>("Loser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LoserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("MapId")
                         .HasColumnType("int");
@@ -65,9 +64,8 @@ namespace Caligula.Service.Migrations
                     b.Property<int>("MatchId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Winner")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WinnerId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -87,12 +85,12 @@ namespace Caligula.Service.Migrations
                     b.Property<int>("DbMatchId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DbPlayerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Decision")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("RatingChange")
                         .HasColumnType("int");
@@ -101,53 +99,23 @@ namespace Caligula.Service.Migrations
 
                     b.HasIndex("DbMatchId");
 
-                    b.HasIndex("DbPlayerId");
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Participants");
                 });
 
             modelBuilder.Entity("Caligula.Model.DBModels.DbPlayer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AccountId")
+                    b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProPlayerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("PlayerId");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("Caligula.Model.DBModels.DbPlayerId", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("DbPlayerId");
                 });
 
             modelBuilder.Entity("Caligula.Model.DBModels.DbMatch", b =>
@@ -171,24 +139,13 @@ namespace Caligula.Service.Migrations
 
                     b.HasOne("Caligula.Model.DBModels.DbPlayer", "DbPlayer")
                         .WithMany("Participants")
-                        .HasForeignKey("DbPlayerId")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DbMatch");
 
                     b.Navigation("DbPlayer");
-                });
-
-            modelBuilder.Entity("Caligula.Model.DBModels.DbPlayerId", b =>
-                {
-                    b.HasOne("Caligula.Model.DBModels.DbPlayer", "Player")
-                        .WithMany("CharacterIds")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Caligula.Model.DBModels.DbMap", b =>
@@ -203,8 +160,6 @@ namespace Caligula.Service.Migrations
 
             modelBuilder.Entity("Caligula.Model.DBModels.DbPlayer", b =>
                 {
-                    b.Navigation("CharacterIds");
-
                     b.Navigation("Participants");
                 });
 #pragma warning restore 612, 618

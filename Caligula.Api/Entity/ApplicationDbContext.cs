@@ -19,7 +19,11 @@ namespace Caligula.Service.Entity
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<DbPlayer>()
-                .HasKey(p => p.ProPlayerId);
+                .HasKey(p => p.PlayerId);
+
+            modelBuilder.Entity<DbPlayer>()
+                .Property(p => p.PlayerId)
+                .ValueGeneratedNever();
 
             modelBuilder.Entity<DbParticipant>()
                 .HasOne(p => p.DbMatch)
@@ -29,12 +33,13 @@ namespace Caligula.Service.Entity
             modelBuilder.Entity<DbParticipant>()
                 .HasOne(p => p.DbPlayer)
                 .WithMany(pl => pl.Participants)
-                .HasForeignKey(p => p.ProPlayerId);
+                .HasForeignKey(p => p.PlayerId);
 
             modelBuilder.Entity<DbMatch>()
                 .HasOne(m => m.Map)
                 .WithMany(mp => mp.Matches)
                 .HasForeignKey(m => m.MapId);
         }
+
     }
 }

@@ -10,8 +10,8 @@ namespace Caligula.Model.DBModels
         public List<DbParticipant> Participants { get; set; } = new List<DbParticipant>();
         public DbMap Map { get; set; }
         public int MapId { get; set; } // Foreign key to DbMap
-        public string Winner { get; set; }
-        public string Loser { get; set; }
+        public int WinnerId { get; set; } // Foreign key to DbPlayer
+        public int LoserId { get; set; } // Foreign key to DbPlayer
         public int? Duration { get; set; }
         public DateTime Date { get; set; }
     }
@@ -20,7 +20,7 @@ namespace Caligula.Model.DBModels
     {
         public int Id { get; set; }
         public int DbMatchId { get; set; } // Foreign key to DbMatch
-        public int ProPlayerId { get; set; } // Foreign key to DbPlayer
+        public int PlayerId { get; set; } // Foreign key to DbPlayer
         public string Decision { get; set; }
         public int? RatingChange { get; set; }
 
@@ -30,7 +30,7 @@ namespace Caligula.Model.DBModels
 
     public class DbPlayer
     {
-        public int ProPlayerId { get; set; }
+        public int PlayerId { get; set; }
         public string Name { get; set; }
         public List<DbParticipant> Participants { get; set; } = new List<DbParticipant>(); // Navigation property
     }
@@ -42,4 +42,5 @@ namespace Caligula.Model.DBModels
 
         public List<DbMatch> Matches { get; set; } = new List<DbMatch>(); // Navigation property
     }
+
 }

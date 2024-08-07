@@ -27,4 +27,8 @@
     <ProjectReference Include="..\Caligula.Model\Caligula.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
